@@ -1,7 +1,7 @@
 package com.islandreservations.reservation;
 
 public enum ErrorMessage {
-    RESERVATION_NOT_PENDING("A reserva já não está mais no status pendente."),
+    RESERVATION_NOT_PENDING("The reservation is no longer in pending status."),
     RESERVATION_NOT_FOUND("Reservation not found."),
     RESERVATION_ALREADY_CANCELED("Reservation already cancelled."),
     INVALID_RESERVATION_STATUS_FOR_CHECKIN("Invalid reservation status for check-in."),

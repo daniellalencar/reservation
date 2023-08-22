@@ -1,15 +1,11 @@
 package com.islandreservations.reservation.service.consumer;
 
 import com.islandreservations.reservation.dto.ReservationDTO;
-import com.islandreservations.reservation.service.ReservationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-
-
-import java.io.IOException;
 
 @Slf4j
 @AllArgsConstructor
@@ -22,26 +18,22 @@ public class ReservationConsumer {
     private final CancelReservation cancelReservation;
 
     @KafkaListener(topics = "${topic.create-reservation}", groupId = "group_id")
-    public void createReservation(@Payload ReservationDTO reservationDTO) throws IOException {
-        log.info(String.format("Create reservation {}", reservationDTO));
+    public void createReservation(@Payload ReservationDTO reservationDTO) {
         createReservation.execute(reservationDTO);
     }
 
     @KafkaListener(topics = "${topic.checkout-reservation}", groupId = "group_id")
-    public void checkoutReservation(@Payload ReservationDTO reservationDTO) throws IOException {
-        log.info(String.format("Consuming checkout reservation {}", reservationDTO));
+    public void checkoutReservation(@Payload ReservationDTO reservationDTO) {
         checkoutReservation.execute(reservationDTO);
     }
 
     @KafkaListener(topics = "${topic.checkin-reservation}", groupId = "group_id")
-    public void checkinReservation(@Payload ReservationDTO reservationDTO) throws IOException {
-        log.info(String.format("Consuming checkin  reservation {}", reservationDTO));
+    public void checkinReservation(@Payload ReservationDTO reservationDTO) {
         checkinReservation.execute(reservationDTO);
     }
 
     @KafkaListener(topics = "${topic.cancel-reservation}", groupId = "group_id")
-    public void cancelReservation(@Payload ReservationDTO reservationDTO) throws IOException {
-        log.info(String.format("Consuming checkin  reservation {}", reservationDTO));
+    public void cancelReservation(@Payload ReservationDTO reservationDTO) {
         cancelReservation.execute(reservationDTO);
     }
 }
