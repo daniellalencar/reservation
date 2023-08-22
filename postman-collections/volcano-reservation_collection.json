@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Island Reservations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Reservation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"startDate\": \"2023-09-01\",\n  \"endDate\": \"2023-09-05\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/volcano-island/reservation",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "volcano-island",
+            "reservation"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Reservation",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"your_reservation_id\",\n  \"fullName\": \"Jane Smith\",\n  \"email\": \"jane.smith@example.com\",\n  \"startDate\": \"2023-09-02\",\n  \"endDate\": \"2023-09-06\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/volcano-island/reservation",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "volcano-island",
+            "reservation"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Reservation",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/volcano-island/{{reservationId}}/cancel",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "volcano-island",
+            "{{reservationId}}",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Check In",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Jane Smith\",\n  \"email\": \"jane.smith@example.com\",\n  \"startDate\": \"2023-09-02\",\n  \"endDate\": \"2023-09-06\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/volcano-island/{{reservationId}}/checkin",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "volcano-island",
+            "{{reservationId}}",
+            "checkin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Check Out",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Jane Smith\",\n  \"email\": \"jane.smith@example.com\",\n  \"startDate\": \"2023-09-02\",\n  \"endDate\": \"2023-09-06\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/volcano-island/{{reservationId}}/checkout",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "volcano-island",
+            "{{reservationId}}",
+            "checkout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Reservation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/volcano-island/{{reservationId}}",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "volcano-island",
+            "{{reservationId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

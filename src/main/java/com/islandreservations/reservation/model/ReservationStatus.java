@@ -1,0 +1,5 @@
+package com.islandreservations.reservation.model;
+
+public enum ReservationStatus {
+    CONFIRMED, CANCELLED, CANCEL_REQUESTED, REQUESTED, PENDING, CHECKIN, CHECKIN_REQUESTED, IN_USE, COMPLETED, CHECKOUT, CHECKOUT_REQUESTED
+}
