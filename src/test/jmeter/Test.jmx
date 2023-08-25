@@ -34,11 +34,10 @@
                 <stringProp name="Argument.value">{&#xd;
   &quot;fullName&quot;: &quot;John ${__RandomString(5,ABCDEFGHIJKLMNOPQRSTUVWXYZ)}&quot;,&#xd;
   &quot;email&quot;: &quot;user${__RandomString(5,abcdefghijklmnopqrstuvwxyz)}@example.com&quot;,&#xd;
-  &quot;startDate&quot;: &quot;${__RandomDate(yyyy-MM-dd,2023-08-01,2023-12-31)}&quot;,&#xd;
-  &quot;endDate&quot;: &quot;${__timeShift(yyyy-MM-dd,${startDate},P2D,,)}&quot;,&#xd;
+  &quot;startDate&quot;: &quot;${__timeShift(yyyy-MM-dd,,P2D,,)}&quot;,&#xd;
+  &quot;endDate&quot;: &quot;${__timeShift(yyyy-MM-dd,${startDate},P${__Random(2,4)}D,,)}&quot;,&#xd;
   &quot;idempotencyKey&quot;: &quot;${__UUID}&quot;&#xd;
-}&#xd;
-</stringProp>
+}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>

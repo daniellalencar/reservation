@@ -1,6 +1,7 @@
 package com.islandreservations.reservation.dto;
 
 import com.islandreservations.reservation.model.ReservationStatus;
+import com.islandreservations.reservation.validator.ValidReservation;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @ToString
 @Data
 @NoArgsConstructor
+@ValidReservation
 public class ReservationDTO {
     @NotNull(message = "Full name is required")
     private String fullName;

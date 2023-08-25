@@ -28,36 +28,37 @@ The Island Reservations Service is a REST API service that manages the campsite 
 
 ### Steps
 
-1. Navigate to the `reservation-service/docker/kafka/Dockerfile` directory.
+1. Navigate to the `reservation/docker/kafka/Dockerfile` directory.
 
 2. Run the Docker Compose file for Kafka:
 
 3. Build and start the application:
+   1. sudo docker-compose -f kafka-docker-compose.yml up -d
 
 
 ## API Documentation
 
 ### Check Campsite Availability
 
-**Endpoint:** `/api/v1/island-reservations/availability`
+**Endpoint:** `/api/island-reservations/availability`
 **Method:** `GET`
 **Parameters:** `startDate`, `endDate`
 
 ### Make a Reservation
 
-**Endpoint:** `/api/v1/island-reservations/reservation`
+**Endpoint:** `/api/island-reservations/reservation`
 **Method:** `POST`
 **Payload:** `fullName`, `email`, `startDate`, `endDate`
 
 ### Cancel a Reservation
 
-**Endpoint:** `/api/v1/island-reservations/{reservationId}/cancel`
+**Endpoint:** `/api/island-reservations/{reservationId}/cancel`
 **Method:** `POST`
 **Parameters:** `reservationId`
 
 ### Modify a Reservation
 
-**Endpoint:** `/api/v1/island-reservations/{reservationId}`
+**Endpoint:** `/api/island-reservations/{reservationId}`
 **Method:** `PUT`
 **Parameters:** `reservationId`
 **Payload:** `fullName`, `email`, `startDate`, `endDate`
