@@ -50,15 +50,17 @@ public class ReservationServiceImpl implements ReservationService {
             Reservation newReservation = reservationRepository.save(reservation);
             ReservationDTO newReservationDTO = reservationConverter.toDTO(newReservation);
             reservationProducer.createReservation(newReservationDTO);
+
             return newReservationDTO;
         } catch (OptimisticLockException e) {
-            throw new ReservationException(ErrorMessage.RESERVATION_ALREADY_EXIST_WITH_SAME_IDEMPOTENCY, e.getMessage());
+            throw new ReservationException(ErrorMessage.CONCURRENT_UPDATE_CONFLICT, e.getMessage());
         }
     }
 
     @Override
     @Transactional
     public ReservationDTO cancelReservation(UUID reservationId) {
+
         return reservationRepository.findById(reservationId)
                 .map(this::cancelReservation)
                 .orElseThrow(() -> new ReservationNotFoundException(ErrorMessage.RESERVATION_NOT_FOUND.getMessage()));
@@ -70,6 +72,7 @@ public class ReservationServiceImpl implements ReservationService {
             Reservation cancelledReservation = reservationRepository.save(reservation);
             ReservationDTO cancelledReservationDTO = reservationConverter.toDTO(cancelledReservation);
             reservationProducer.cancelReservation(cancelledReservationDTO);
+
             return cancelledReservationDTO;
         } else {
             throw new ReservationAlreadyCancelledException(ErrorMessage.RESERVATION_ALREADY_CANCELED.getMessage());
@@ -79,6 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public ReservationDTO updateReservation(ReservationDTO updatedReservationDTO) {
+
         return reservationRepository.findById(updatedReservationDTO.getId())
                 .map(existingReservation -> saveReservation(updatedReservationDTO, existingReservation))
                 .orElseThrow(() -> new ReservationNotFoundException(ErrorMessage.RESERVATION_NOT_FOUND.formatMessage(updatedReservationDTO.getId())));
@@ -91,6 +95,7 @@ public class ReservationServiceImpl implements ReservationService {
         existingReservation.setEndDate(updatedReservationDTO.getEndDate());
         existingReservation.setReservationStatus(updatedReservationDTO.getReservationStatus());
         Reservation updatedReservation = reservationRepository.save(existingReservation);
+
         return reservationConverter.toDTO(updatedReservation);
     }
 
@@ -107,6 +112,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public ReservationDTO checkIn(ReservationDTO reservationDTO) {
+
         return reservationRepository.findById(reservationDTO.getId())
                 .map(reservation -> checkIn(reservationDTO, reservation))
                 .orElseThrow(() -> new ReservationNotFoundException(ErrorMessage.RESERVATION_NOT_FOUND.getMessage()));
@@ -115,6 +121,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public ReservationDTO checkOut(UUID reservationId) {
+
         return reservationRepository.findById(reservationId)
                 .map(this::checkOut)
                 .orElseThrow(() -> new ReservationNotFoundException(ErrorMessage.RESERVATION_NOT_FOUND.getMessage()));
@@ -127,6 +134,7 @@ public class ReservationServiceImpl implements ReservationService {
             Reservation updatedReservation = reservationRepository.save(reservation);
             ReservationDTO reservationDTO = reservationConverter.toDTO(updatedReservation);
             reservationProducer.checkOut(reservationDTO);
+
             return reservationDTO;
         } else {
             throw new InvalidReservationStatusException(RESERVATION_IS_NOT_IN_CHECKED_IN.getMessage());
@@ -142,11 +150,13 @@ public class ReservationServiceImpl implements ReservationService {
         } else {
             throw new InvalidReservationStatusException(ErrorMessage.INVALID_RESERVATION_STATUS_FOR_CHECKIN.getMessage());
         }
+
         return reservationConverter.toDTO(reservation);
     }
 
     @Override
     public ReservationDTO getReservationById(UUID reservationId) {
+
         return reservationRepository.findById(reservationId)
                 .map(reservationConverter::toDTO)
                 .orElseThrow(() -> new ReservationNotFoundException("Reservation not found with ID: " + reservationId));
@@ -158,6 +168,7 @@ public class ReservationServiceImpl implements ReservationService {
         List<ReservationDTO> reservationDTOs = reservationPage.getContent().stream()
                 .map(reservationConverter::toDTO)
                 .toList();
+
         return new PageImpl<>(reservationDTOs, pageable, reservationPage.getTotalElements());
     }
 
@@ -176,6 +187,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     private List<LocalDate> getDatesBetween(LocalDate startDate, LocalDate endDate) {
+
         return IntStream.range(0, (int) ChronoUnit.DAYS.between(startDate, endDate))
                 .mapToObj(startDate::plusDays)
                 .toList();

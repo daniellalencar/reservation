@@ -7,7 +7,8 @@ public enum ErrorMessage {
     INVALID_RESERVATION_STATUS_FOR_CHECKIN("Invalid reservation status for check-in."),
     RESERVATION_IS_NOT_IN_CHECKED_IN("Reservation is not in checked-in status"),
     CANT_UPDATE_NON_CONFIRMED_RESERVATION("Can't update a reservation that is not confirmed"),
-    RESERVATION_ALREADY_EXIST_WITH_SAME_IDEMPOTENCY("Reservation with this idempotency key already exists");
+    RESERVATION_ALREADY_EXIST_WITH_SAME_IDEMPOTENCY("Reservation with this idempotency key already exists"),
+    CONCURRENT_UPDATE_CONFLICT("Update conflict.");
 
     private final String message;
 
