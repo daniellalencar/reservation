@@ -15,6 +15,7 @@ public class ReservationConverter {
         reservationDTO.setId(reservation.getId());
         reservationDTO.setReservationStatus(reservation.getReservationStatus());
         reservationDTO.setIdempotencyKey(reservation.getIdempotencyKey());
+
         return reservationDTO;
     }
 
@@ -26,6 +27,7 @@ public class ReservationConverter {
         reservation.setEndDate(dto.getEndDate());
         reservation.setReservationStatus(dto.getReservationStatus());
         reservation.setIdempotencyKey(dto.getIdempotencyKey());
+
         return reservation;
     }
 }

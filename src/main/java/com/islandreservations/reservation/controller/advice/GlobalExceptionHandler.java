@@ -4,12 +4,14 @@ import com.islandreservations.reservation.exception.ErrorResponse;
 import com.islandreservations.reservation.exception.IdempotencyKeyConflictException;
 import com.islandreservations.reservation.exception.InvalidReservationStatusException;
 import com.islandreservations.reservation.exception.ReservationAlreadyCancelledException;
+import com.islandreservations.reservation.exception.ReservationException;
 import com.islandreservations.reservation.exception.ReservationNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.ws.rs.InternalServerErrorException;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -55,6 +58,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IdempotencyKeyConflictException.class)
     public ResponseEntity<ErrorResponse> handleIdempotencyKeyConflictException(IdempotencyKeyConflictException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
+    @ExceptionHandler(ReservationException.class)
+    public ResponseEntity<ErrorResponse> handleReservationException(ReservationException ex) {
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
